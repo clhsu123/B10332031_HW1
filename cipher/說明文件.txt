@@ -1,0 +1,10 @@
+以C++實做
+1)Caecer cipher 
+2)Monoalphabetic cipher
+3)Playfair cipher
+4)Vernam cipher
+5)Row transpotation
+6)Product cipher
+
+明文為: sentfrommyiphone
+程式碼有附上註解
