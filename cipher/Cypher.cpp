@@ -6,21 +6,25 @@
 
 using namespace std;
 
-string Caeser_cipher(string x);
-string Monoalphabetic_cipher(string x);
-string Playfair_cipher(string x);
-string Row_transposition(string x);
-string Product_cipher(string x);
+string Caeser_cipher(string x);//Caeser_cipher
+string Monoalphabetic_cipher(string x);//Monoalphabetic cipher
+string Playfair_cipher(string x);///Playfair_cipher
+string Row_transposition(string x);//Row transposition
+string Product_cipher(string x);//Product cipher
+string Vernam_cipher(string x);//Vernam cipher
 vector<string> Slice_string(string x, int a);
-string toBinary(int n);
-int toDecimal(string x);
-string Vernam_cipher(string x);
-string XOR(string a, string b);
+string toBinary(int n);//十進位轉換為二進位 
+int toDecimal(string x);//二進位轉換成十進位 
+string XOR(string a, string b);//Exclusive OR
 int main()
 {
 	string plaintext="sentfrommyiphone";
 	cout<<"Plaintext: sentfrommyiphone"<<endl;
-	cout<<"Caeser_cypher:"<<Caeser_cipher(plaintext)<<endl<<"Monoalphabetic_cypher:"<<Monoalphabetic_cipher(plaintext)<<endl<<"Playfair_cypher:"<<Playfair_cipher(plaintext)<<endl<<"Row_transposition:"<<Row_transposition(plaintext)<<endl<<"Product_cipher:"<<Product_cipher(plaintext)<<endl;
+	cout<<"Caeser_cypher:"<<Caeser_cipher(plaintext)<<endl;
+	cout<<"Monoalphabetic_cypher:"<<Monoalphabetic_cipher(plaintext)<<endl;
+	cout<<"Playfair_cypher:"<<Playfair_cipher(plaintext)<<endl;
+	cout<<"Row_transposition:"<<Row_transposition(plaintext)<<endl;
+	cout<<"Product_cipher:"<<Product_cipher(plaintext)<<endl;
 	cout<<"Vernam_cipher:"<<Vernam_cipher(plaintext)<<endl;
 	system("PAUSE");
 }
@@ -31,7 +35,7 @@ string Caeser_cipher(string x)
 	{
 		if(x[i]>=65 && x[i]<=90)
 		{
-			x[i]+=3;
+			x[i]+=3;//將plaintext移位三格 
 			if(x[i]>90)
 			{
 				x[i]-=26;
@@ -40,7 +44,7 @@ string Caeser_cipher(string x)
 		}
 		else if(x[i]>=97 && x[i]<=122)
 		{
-			x[i]+=3;
+			x[i]+=3;//將plaintext移位三格 
 			if(x[i]>122)
 			{
 				x[i]-=26;
@@ -115,21 +119,21 @@ string Playfair_cipher(string x)
 			}
 		}
 		
-		if(posax==posbx)
+		if(posax==posbx)//兩個字母在同一行 
 		{
 			posay=(posay+1)%5;
 			posby=(posby+1)%5;
 			output+=table[posax][posay];
 			output+=table[posbx][posby];
 		}
-		else if(posay==posby)
+		else if(posay==posby)//兩個字母在同一列 
 		{
 			posax=(posax+1)%5;
 			posbx=(posbx+1)%5;
 			output+=table[posax][posay];
 			output+=table[posbx][posby];
 		}
-		else
+		else//兩個字母不在同一行或同一列 
 		{
 			int holder=posby;
 			posby=posay;
@@ -163,7 +167,7 @@ string Row_transposition(string x)
 	}
 	return result;
 }
-vector<string> Slice_string(string x, int a)
+vector<string> Slice_string(string x, int a)//分割字串, string x 是要分割的字串, int a 是分割的數目 
 {
 	string holder="";
 	vector<string> data;
@@ -217,7 +221,7 @@ string toBinary(int n)
     r=fix+r;
     return r;
 }
-string XOR(string a, string b)
+string XOR(string a, string b)//Exclusive OR 
 {
 	string result="";
 	for(int i=0;i<a.size();i++)
@@ -240,9 +244,9 @@ string Vernam_cipher(string x)
 	int holder1, holder2;
 	string alpha="abcdefghijklmnopqrstuvwxyz";
 	string key="kmt";
-	for(int i=0;key.size()<x.size();i++)
+	for(int i=0;key.size()<x.size();i++)//產生key 
 	{
-		key+=x[i];
+		key+=x[i]; 
 	}
 	for(int i=0;i<x.size();i++)
 	{
@@ -259,18 +263,18 @@ string Vernam_cipher(string x)
 				holder2=j;
 			}
 		}
-		decipher=XOR(toBinary(holder1),toBinary(holder2));
+		decipher=XOR(toBinary(holder1),toBinary(holder2));//將plaintext和key做XOR 
 		for(int i=0;i<alpha.size();i++)
 		{
 			if(toDecimal(decipher)%26==i)
 			{
-				result+=alpha[i];
+				result+=alpha[i];//將結果產生 
 			}
 		}
 	}
 	return result;
 }
-int toDecimal(string x)
+int toDecimal(string x)//將二進位轉成十進位 
 {
 	int result=0;
 	for(int i=0;i<x.size();i++)
